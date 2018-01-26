@@ -21,7 +21,6 @@ public class Board extends JFrame{
 		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 		this.setVisible(true);
 	}
-	
 	private void displayImage() {
 		ImageIcon icon = new ImageIcon("CluedBoard.jpg");
 		this.add(new JLabel(icon));
