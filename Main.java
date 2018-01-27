@@ -5,7 +5,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		Board gameBoard = new Board();
 		Control controlPanel = new Control();
-		controlPanel.panel();
+		//controlPanel.panel();
 		//gameBoard.DrawPlayer(PlayerIdentity, X, Y, )
 	}
 
