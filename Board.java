@@ -1,17 +1,11 @@
-package board;
+
 import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.*;
 
 public class Board extends JFrame{
-	public static void main (String[] args)
-	{
-		new Board();
-		Control controlPanel = new Control();
-		controlPanel.panel();
-		
-	}
+	
 	
 	public Board() {
 		this.setTitle("Cluedo Board");
