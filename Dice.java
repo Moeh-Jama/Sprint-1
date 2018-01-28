@@ -1,4 +1,3 @@
-package board;
 
 public class Dice {
 	private int faceValue;
