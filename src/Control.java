@@ -20,72 +20,105 @@ public class Control extends JFrame implements ActionListener{
 		
 		this.setTitle("Control Panel");
 		this.setSize(600, 600);
-		//this.setLayout(new GridLayout(3, 0));
-		JTextArea text = new JTextArea("HELLO WORLD");
-		
-		this.add(text);
-		
 		
 		panel();
-		//TextField();
+		
 		this.add(panel);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 	}
 	
-	public void TextField() {
+	/*public void TextField() {
 		
 		JTextField text = new JTextField("HELLO WORLD");
 		this.revalidate();
 		panel.add(text);
 		System.out.println("HELLO WORLD>>>");
-		//new Control();
-	}
+	}*/
 	
 	public void panel(){
-		
-		System.out.println("1");
-		JButton roll =new JButton("Roll Dice");
+		JButton roll = new JButton("Roll Dice");
 		roll.setActionCommand("Roll");
-		roll.addActionListener(this);
+		roll.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				totalNumberOfMoves = 0;
+				int result = 0;
+				Dice dice[] = new Dice[2];
+				for(int i=0;i<2;i++){
+					dice[i] = new Dice();
+					result += dice[i].value();
+				}			
+				String message = ("Your dices' values are " + dice[0].value() + " and " + dice[1].value() + ", so you have " + result + " moves.");
+				JOptionPane.showMessageDialog(null, message);
+				totalNumberOfMoves = result;
+				roll.setEnabled(false);
+			 }
+		});
 		
-		JButton submit = new JButton("Submit Moves");
-		submit.addActionListener(this);
+		
+		JButton submitMove = new JButton("Submit Moves");
+		submitMove.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				boolean validMove;
+				if(totalNumberOfMoves == 0) {
+					String errorMessage = "Please roll a dice first in order to make your move.";
+					JOptionPane.showMessageDialog(null, errorMessage, "An Error has occured", JOptionPane.ERROR_MESSAGE);
+				}else {
+					do{
+						validMove = false;
+						String moves = JOptionPane.showInputDialog("Please insert your move > ");
+						String [] splited = moves.split("");
+						if(splited.length != totalNumberOfMoves){
+							JOptionPane.showMessageDialog(null, "Invalid number of moves, you have " + totalNumberOfMoves + " moves.", "An Error has occured", JOptionPane.ERROR_MESSAGE);
+						}else{
+							//to check for invalid input
+							for(int i=0;i<splited.length;i++){
+								if(!splited[i].equalsIgnoreCase("U") && !splited[i].equalsIgnoreCase("D")
+									&& !splited[i].equalsIgnoreCase("L")&& !splited[i].equalsIgnoreCase("R")){
+									JOptionPane.showMessageDialog(null, "Invalid input. All input should only contain\n" + "U = UP\nD = DOWN\nL = Left\nR = Right", "An Error has occured", JOptionPane.ERROR_MESSAGE);
+									break;
+								}
+								else{
+									validMove = true;
+								}
+							}
+							
+							for(int i=0;i<splited.length;i++){
+								if(splited[i].equalsIgnoreCase("U")){
+									
+								}else if(splited[i].equalsIgnoreCase("D")){
+									
+								}else if(splited[i].equalsIgnoreCase("L")){
+									
+								}else if(splited[i].equalsIgnoreCase("R")){
+									
+								}
+							}
+						}
+						
+					}while(!validMove);
+				}
+				submitMove.setEnabled(false);
+			 }
+		});
+		
 		panel.add(roll);
-		panel.add(submit);
-		//this.add(panel);
-	//	this.getContentPane().add(roll);
-		
+		panel.add(submitMove);
 	}	
 	
 	public void actionPerformed(ActionEvent e) {
 		
 		String name = e.getActionCommand();
 		switch(name) {
-		case "Roll":{
-			int result = 0;
-			String setsOfMoves = "";
-			Dice dice[] = new Dice[2];
-			for(int i=0;i<2;i++){
-				dice[i] = new Dice();
-				result += dice[i].value();
-			}			
-			String message = ("Your dices' values are " + dice[0].value() + " and " + dice[1].value() + ", so you have " + result + " moves.");
-			JOptionPane.showMessageDialog(null, message);
-			totalNumberOfMoves = result;
-			TextField();
-			break;
+		/*case "Roll":{
+			
+			
 		}
 		case "Submit Moves":{
-			if(totalNumberOfMoves==0) {
-				String errorMessage = "I'm Sorry but you must first roll a dice in order to enter this command.";
-				JOptionPane.showMessageDialog(null, errorMessage, "An Error has occured", JOptionPane.ERROR_MESSAGE);
-			}
-			else {
-				
-			}
-			break;
-		}
+			
+		}*/
 		default:{
 			JOptionPane.showInputDialog(null, "An unexptected Error has Occured: Control:63", JOptionPane.ERROR_MESSAGE);
 			break;

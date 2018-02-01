@@ -73,7 +73,8 @@ public class Board extends JFrame{
 		return panel.getSize().width;
 	}
 	private void displayImage() {
-		ImageIcon icon = new ImageIcon(".\\CluedBoard.jpg");
+		//ImageIcon icon = new ImageIcon(".\\image\\CluedBoard.jpg");
+		ImageIcon icon = new ImageIcon("src/image/CluedBoard.jpg");
 		this.add(new JLabel(icon));
 	}
 	private void drawInGridPanel() {
