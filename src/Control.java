@@ -28,23 +28,19 @@ public class Control extends JFrame implements ActionListener{
 		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 	}
 	
-	/*public void TextField() {
-		
-		JTextField text = new JTextField("HELLO WORLD");
-		this.revalidate();
-		panel.add(text);
-		System.out.println("HELLO WORLD>>>");
-	}*/
-	
 	public void panel(){
+		//create roll button
 		JButton roll = new JButton("Roll Dice");
 		roll.setActionCommand("Roll");
 		roll.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				totalNumberOfMoves = 0;
+				//to store the sum of two dice
+				totalNumberOfMoves = 0; 
 				int result = 0;
 				Dice dice[] = new Dice[2];
+				
+				//roll two dice
 				for(int i=0;i<2;i++){
 					dice[i] = new Dice();
 					result += dice[i].value();
@@ -52,15 +48,18 @@ public class Control extends JFrame implements ActionListener{
 				String message = ("Your dices' values are " + dice[0].value() + " and " + dice[1].value() + ", so you have " + result + " moves.");
 				JOptionPane.showMessageDialog(null, message);
 				totalNumberOfMoves = result;
+				
+				//disable the roll button after user had roll the dice
 				roll.setEnabled(false);
 			 }
 		});
 		
-		
+		//create submit move button
 		JButton submitMove = new JButton("Submit Moves");
 		submitMove.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
+				//to check if the moves set that the user insert is valid
 				boolean validMove;
 				if(totalNumberOfMoves == 0) {
 					String errorMessage = "Please roll a dice first in order to make your move.";
@@ -70,10 +69,12 @@ public class Control extends JFrame implements ActionListener{
 						validMove = false;
 						String moves = JOptionPane.showInputDialog("Please insert your move > ");
 						String [] splited = moves.split("");
+						
+						//to check if the user insert the same number of moves compare to the sum of the two dice
 						if(splited.length != totalNumberOfMoves){
 							JOptionPane.showMessageDialog(null, "Invalid number of moves, you have " + totalNumberOfMoves + " moves.", "An Error has occured", JOptionPane.ERROR_MESSAGE);
 						}else{
-							//to check for invalid input
+							//to check for invalid input from users
 							for(int i=0;i<splited.length;i++){
 								if(!splited[i].equalsIgnoreCase("U") && !splited[i].equalsIgnoreCase("D")
 									&& !splited[i].equalsIgnoreCase("L")&& !splited[i].equalsIgnoreCase("R")){
@@ -85,6 +86,7 @@ public class Control extends JFrame implements ActionListener{
 								}
 							}
 							
+							//x and y coordinates operation here
 							for(int i=0;i<splited.length;i++){
 								if(splited[i].equalsIgnoreCase("U")){
 									
@@ -100,10 +102,12 @@ public class Control extends JFrame implements ActionListener{
 						
 					}while(!validMove);
 				}
+				//disable the submit move button
 				submitMove.setEnabled(false);
 			 }
 		});
 		
+		//add buttons into the control panel
 		panel.add(roll);
 		panel.add(submitMove);
 	}	
