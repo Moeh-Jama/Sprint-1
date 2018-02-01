@@ -1,6 +1,7 @@
 import java.util.*;
 public class Cell {
 	private boolean door;
+	private String room;
 	private String type;
 	private boolean player;
 	private int x1;
@@ -16,6 +17,14 @@ public class Cell {
 		x2 = a2;
 		y1 = b1;
 		y2 = b2;
+	}
+	
+	public void setRoom(String s)
+	{
+		room = s;
+	}
+	public String getRoom() {
+		return room;
 	}
 	
 	public String getType(){

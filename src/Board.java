@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.*;
 import javax.swing.event.AncestorEvent;
@@ -14,6 +15,7 @@ public class Board extends JFrame{
 	private int Width = 638;
 	private JPanel panel = new JPanel();
 	private ArrayList<Cell> grid = new ArrayList<Cell>();
+	private Cell[][] newGrid = new Cell[24][24];
 	public Board() {
 		//The main Board Interface.
 		this.setTitle("Cluedo Board");
@@ -31,10 +33,11 @@ public class Board extends JFrame{
 	}
 	
 	private void createArrayListGrid() {
-		int iteration = 0;
+		int iterationx = 0;
 		for(int i=0; i<getPanelHeight(); i+=24)
 		{
 			//System.out.println(iteration+", "+i);
+			int iterationy =0;
 			for(int j =0; j<getPanelWidth(); j+=24)
 			{
 				Cell temp = new Cell(false, false, "NA", j, i, j+24, i+24);
@@ -42,10 +45,15 @@ public class Board extends JFrame{
 					//System.out.println("("+j+","+i+")"+"\t"+"("+(j+24)+", "+(i+24)+")");
 				}
 				
+				System.out.println("["+iterationx+","+iterationy+"]"+"\n"+Room.GetRoom(j, i)+"\t"+i+","+j);
+				temp.setRoom(Room.GetRoom(j, i));
 				grid.add(temp);
+				//System.out.println();
+				newGrid[iterationx][iterationy] = temp;
+				iterationy++;
 			}
 			
-			iteration++;
+			iterationx++;
 		}
 	}
 	
@@ -81,8 +89,23 @@ public class Board extends JFrame{
 		
 	}
 		
-	
-	
+	public void testRooms() {
+		Scanner input = new Scanner(System.in);
+		while (true) {
+			String res = input.nextLine();
+			
+			if(res.equals("-1"))
+			{
+				break;
+			}
+			else {
+				String[] numbers = res.split(" ");
+				int x = Integer.parseInt(numbers[0]);
+				int y = Integer.parseInt(numbers[1]);
+				System.out.println(Room.GetRoom(x, y)+" |||| "+newGrid[x][y].getRoom());
+			}
+		}
+	}
 	
 	private class ListenToJPanel implements MouseListener{
 
@@ -93,65 +116,8 @@ public class Board extends JFrame{
 			//System.out.println("Current Posiition isL "+panel.getMousePosition());
 			int px = panel.getMousePosition().x;
 			int py = panel.getMousePosition().y;
-			//System.out.println(px+" ___ "+py);
-			if((px<=140) && (py<=158)) {
-				System.out.println("Kitchen");
-			}
-			else if((py>=50 && py<=180) && (px>=195 && px<=366))
-			{
-				System.out.println("Ball Room");
-			}
-			else if((py>=0 && py<=46) && (px>=235 && px<=324))
-			{
-				System.out.println("Ball Room");
-			}
-			else if((py>=437 && py<=573) && (px>=0 && px<=163))
-			{
-				System.out.println("Lounge");
-			}
-			else if((py>=415 && py<=570) && (px>=213 && px<=346))
-			{
-				System.out.println("Hall");
-			}
-			else if((py>=180 && py<=295) && (px>=420 && px<=553))
-			{
-				System.out.println("Billiard Room");
-			}
-			else if((py>=0 && py<=112) && (px>=418 && px<=550))
-			{
-				System.out.println("Conservatory");
-			}
-			else if((py>=114 && py<=133) && (px>=442 && px<=554))
-			{
-				System.out.println("Conservatory");
-			}
-			else if((py>=232 && py<=362) && (px>=0 && px<=185))
-			{
-				System.out.println("Dining Room");
-			}
-			else if((py>=204 && py<=230) && (px>=0 && px<=115))
-			{
-				System.out.println("Dining Room");
-			}
-			else if((py>=485 && py<=573) && (px>=396 && px<=553))
-			{
-				System.out.println("Study");
-			}
-			else if((py>=322 && py<=432) &&  (px>=418 && px<=550))
-			{
-				System.out.println("Library");
-			}
-			else if((py>=345 && py<=409) && (px>=396 && px<=(396+24)))
-			{
-				System.out.println("Library");
-			}
-			else if((py>=231 && py<=387) && (px>=235 && px<=346))
-			{
-				System.out.println("Cellar");
-			}
-			else {
-				System.out.println("Corridoors");
-			}
+			System.out.println(px+" ___ "+py);
+			System.out.println(Room.GetRoom(px, py));
 			
 
 		}
