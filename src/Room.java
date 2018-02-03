@@ -13,9 +13,10 @@ public class Room {
 	
 	private static boolean isBallroom(int x, int y)
 	{
-		if((y>=50 && y<=180) && (x>=195 && x<=366))
+	
+		if((y>=40 && y<=180) && (x>=195 && x<=366))
 		{
-			//System.out.println("Ball Room");
+			
 			return true;
 		}
 		else if((y>=0 && y<=46) && (x>=235 && x<=324))
@@ -26,6 +27,11 @@ public class Room {
 		else {
 			return false;
 		}
+	}
+	
+	public boolean isDoor() {
+		
+		return false;
 	}
 	
 	private static boolean isLounge(int x, int y)
@@ -123,13 +129,14 @@ public class Room {
 		return true;
 	}
 	
-	public static String GetRoom(int px, int py)
+	public static String GetRoom(int py, int px)
 	{
 		if(isKitchen(px,py)) {
 			return ("Kitchen");
 		}
 		else if(isBallroom(px,py))
 		{
+			
 			return ("Ball Room");
 		}
 		else if(isLounge(px,py))
@@ -154,6 +161,7 @@ public class Room {
 		}
 		else if(isStudy(px,py))
 		{
+			//System.out.println("Calculated x, y: "+px+", "+py);
 			return ("Study");
 		}
 		else if(isLibrary(px,py))

@@ -5,9 +5,11 @@ public class Main {
 		// TODO Auto-generated method stub
 		Board gameBoard = new Board();
 		//Control controlPanel = new Control();
-		gameBoard.testRooms();
+		//gameBoard.testRooms();
 		//controlPanel.panel();
 		//gameBoard.DrawPlayer(PlayerIdentity, X, Y, )
+		
+		
 	}
 
 }

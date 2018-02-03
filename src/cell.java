@@ -30,6 +30,9 @@ public class Cell {
 	public String getType(){
 		return this.type;
 	}
+	public void setDoor(boolean t) {
+		door = t;
+	}
 	public boolean getDoor(){
 		return door;
 	}

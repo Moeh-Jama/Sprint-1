@@ -3,6 +3,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,16 +18,17 @@ public class Board extends JFrame{
 	private int Height = 640;
 	private int Width = 638;
 	private JPanel panel = new JPanel();
-	private ArrayList<Cell> grid = new ArrayList<Cell>();
-	private Cell[][] newGrid = new Cell[24][24];
+	private ArrayList<String> doorCoordinates = new ArrayList<String>();
+	private Cell[][] panel_grid = new Cell[25][25];
 	public Board() {
 		//The main Board Interface.
 		this.setTitle("Cluedo Board");
 		this.setSize(Height, Width);
 		// The main 23*23 grid panel is created.
+		createDoors();
 		createGridPanel();
 		displayImage();
-		
+		createDoorsGrid();
 
 		
 		//this.setResizable(false);
@@ -34,40 +39,88 @@ public class Board extends JFrame{
 	
 	private void createArrayListGrid() {
 		int iterationx = 0;
-		for(int i=0; i<getPanelHeight(); i+=24)
+		int steps = 23;
+		for(int i=0; i<getPanelHeight(); i+=steps)
 		{
 			//System.out.println(iteration+", "+i);
 			int iterationy =0;
-			for(int j =0; j<getPanelWidth(); j+=24)
+			for(int j =0; j<getPanelWidth(); j+=steps)
 			{
-				Cell temp = new Cell(false, false, "NA", j, i, j+24, i+24);
-				if(j==0) {
-					//System.out.println("("+j+","+i+")"+"\t"+"("+(j+24)+", "+(i+24)+")");
-				}
+				//In order to calculate where the user is in get all corner and their
+				// x,y coordinates.
+				int x1 = i;
+				int x2 = i+steps;
+				int y1 = j;
+				int y2 = j+steps;
+				// get the mid points of each axis
+				int mid1 = (x1+x2)/2;
+				int mid2 = (y1+y2)/2;
+				// This should give us the mid point of each cell and reduces any
+				// irregular points. I.e. a point being behind or after a grid line.
 				
-				System.out.println("["+iterationx+","+iterationy+"]"+"\n"+Room.GetRoom(j, i)+"\t"+i+","+j);
-				temp.setRoom(Room.GetRoom(j, i));
-				grid.add(temp);
-				//System.out.println();
-				newGrid[iterationx][iterationy] = temp;
+				Cell temp = new Cell(false, false, "NA", x1, y1, x2, y2);
+				
+				
+				panel_grid[iterationx][iterationy] = temp;
+				
+				// The room is now assigned to the grid cell.
+				panel_grid[iterationx][iterationy].setRoom(Room.GetRoom(mid1, mid2));
 				iterationy++;
 			}
 			
 			iterationx++;
 		}
 	}
+
+	private void createDoors() {
+		FileReader n = null;
+		try {
+			n = new FileReader("C:\\Users\\kalto\\eclipse-workspace\\Sprint_1\\src\\Doors.txt");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Scanner in = new Scanner(n);
+		
+		BufferedReader k = new BufferedReader(n);
+		String line = null;
+		
+		try {
+			while((line = k.readLine()) != null)
+			{
+				Scanner input = new Scanner(line);
+				doorCoordinates.add(line);
+				//System.out.println(line);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void createDoorsGrid() {
+		for(String s: doorCoordinates) {
+			String[] XsYs = s.split(", ");
+			int x = Integer.parseInt(XsYs[0]);
+			int y = Integer.parseInt(XsYs[1]);
+			//System.out.println(XsYs[0]+"\t"+XsYs[1]);
+			panel_grid[x][y].setDoor(true);;
+		}
+	}
 	
 	private void createGridPanel() {
 		
-		panel.setSize((int) (Width * 0.87), (int)(Height * 0.898));
+		panel.setSize((int) (Width * 0.8655), (int)(Height * 0.898));
 		//panel.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 		
 		//Making the background set.
 		panel.setOpaque(false);
 		//The panel is set to the middle of the board.
-		panel.setLocation((int)30, (int)3);
+		int x = 34;
+		int y = 3;
+		panel.setLocation(x, y);
 		
-		System.out.println("The size of the Plane: "+panel.getSize());
+		//System.out.println("The size of the Plane: "+panel.getSize());
 		ListenToJPanel lpanel = new ListenToJPanel();
 		
 		panel.addMouseListener(lpanel);
@@ -89,37 +142,24 @@ public class Board extends JFrame{
 		
 	}
 		
-	public void testRooms() {
-		Scanner input = new Scanner(System.in);
-		while (true) {
-			String res = input.nextLine();
-			
-			if(res.equals("-1"))
-			{
-				break;
-			}
-			else {
-				String[] numbers = res.split(" ");
-				int x = Integer.parseInt(numbers[0]);
-				int y = Integer.parseInt(numbers[1]);
-				System.out.println(Room.GetRoom(x, y)+" |||| "+newGrid[x][y].getRoom());
-			}
-		}
-	}
+
+	
 	
 	private class ListenToJPanel implements MouseListener{
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
-			//System.out.println("I was clicked");
-			//System.out.println("Current Posiition isL "+panel.getMousePosition());
-			int px = panel.getMousePosition().x;
-			int py = panel.getMousePosition().y;
-			System.out.println(px+" ___ "+py);
-			System.out.println(Room.GetRoom(px, py));
 			
-
+			int px = panel.getMousePosition().y;
+			int py = panel.getMousePosition().x;
+			
+			//Get the grid positions in x and y coordinates.
+			int x = px/23;
+			int y = py/ 23;
+			System.out.println("Room: "+panel_grid[x][y].getRoom());
+			System.out.println("Door: "+panel_grid[x][y].getDoor());
+			
 		}
 
 		@Override

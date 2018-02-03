@@ -59,6 +59,8 @@ public class Control extends JFrame implements ActionListener{
 		submitMove.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
+				int x = 0;
+				int y = 0;
 				//to check if the moves set that the user insert is valid
 				boolean validMove;
 				if(totalNumberOfMoves == 0) {
@@ -89,13 +91,16 @@ public class Control extends JFrame implements ActionListener{
 							//x and y coordinates operation here
 							for(int i=0;i<splited.length;i++){
 								if(splited[i].equalsIgnoreCase("U")){
+									x++;
 									
 								}else if(splited[i].equalsIgnoreCase("D")){
+									x--;
 									
 								}else if(splited[i].equalsIgnoreCase("L")){
+									y++;
 									
 								}else if(splited[i].equalsIgnoreCase("R")){
-									
+									y--;
 								}
 							}
 						}
@@ -104,6 +109,8 @@ public class Control extends JFrame implements ActionListener{
 				}
 				//disable the submit move button
 				submitMove.setEnabled(false);
+				String newString = Integer.toString(x)+", "+Integer.toString(y);
+				System.out.println(newString);
 			 }
 		});
 		
