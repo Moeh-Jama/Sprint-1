@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -73,12 +74,16 @@ public class Board extends JFrame{
 	}
 
 	private void createDoors() {
+		File path = new File("");
+		String absolutePathOfDoors = path.getAbsolutePath()+"\\src\\Doors.txt";
+		System.out.println(absolutePathOfDoors);
 		FileReader n = null;
 		try {
-			n = new FileReader("C:\\Users\\kalto\\eclipse-workspace\\Sprint_1\\src\\Doors.txt");
+			n = new FileReader(absolutePathOfDoors);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Doors does not exist!");
+			//e.printStackTrace();
 		}
 		Scanner in = new Scanner(n);
 		
