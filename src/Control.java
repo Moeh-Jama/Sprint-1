@@ -13,19 +13,21 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class Control extends JFrame implements ActionListener{
+public class Control extends JPanel implements ActionListener{
 	JPanel panel = new JPanel();
 	private int totalNumberOfMoves = 0;
+	private String move= "";
+	private boolean moveSubmitted = false;
 	public Control(){
 		
-		this.setTitle("Control Panel");
+		//this.setTitle("Control Panel");
 		this.setSize(600, 600);
 		
 		panel();
 		
 		this.add(panel);
 		this.setVisible(true);
-		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+		//this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 	}
 	
 	public void panel(){
@@ -109,8 +111,10 @@ public class Control extends JFrame implements ActionListener{
 				}
 				//disable the submit move button
 				submitMove.setEnabled(false);
-				String newString = Integer.toString(x)+", "+Integer.toString(y);
+				moveSubmitted = true;
+				String newString = Integer.toString(x)+","+Integer.toString(y);
 				System.out.println(newString);
+				move = newString;
 			 }
 		});
 		
@@ -118,7 +122,11 @@ public class Control extends JFrame implements ActionListener{
 		panel.add(roll);
 		panel.add(submitMove);
 	}	
-	
+	public String getMove() {
+		if(!moveSubmitted)
+			return "wrong,wrong";
+		return move;
+	}
 	public void actionPerformed(ActionEvent e) {
 		
 		String name = e.getActionCommand();

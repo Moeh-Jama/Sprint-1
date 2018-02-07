@@ -1,4 +1,8 @@
+import java.awt.Dimension;
 import java.util.*;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 public class Cell {
 	private boolean door;
 	private String room;
@@ -8,6 +12,7 @@ public class Cell {
 	private int x2;
 	private int y1;
 	private int y2;
+	
 
 	public Cell(boolean door,boolean player,String type, int a1, int b1,int a2, int b2){
 		this.door=door;
@@ -17,8 +22,9 @@ public class Cell {
 		x2 = a2;
 		y1 = b1;
 		y2 = b2;
+		int size = 23;
 	}
-	
+
 	public void setRoom(String s)
 	{
 		room = s;
