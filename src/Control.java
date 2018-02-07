@@ -115,6 +115,7 @@ public class Control extends JPanel implements ActionListener{
 				String newString = Integer.toString(x)+","+Integer.toString(y);
 				System.out.println(newString);
 				move = newString;
+				//Main.movePlayer(move);
 			 }
 		});
 		

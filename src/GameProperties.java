@@ -67,7 +67,7 @@ public class GameProperties {
 				
 				Cell temp = new Cell(false, false, "NA", x1, y1, x2, y2);
 				
-				System.out.println(iterationx+","+iterationy);
+				//System.out.println(iterationx+","+iterationy);
 				game_board[iterationx][iterationy] = temp;
 
 				

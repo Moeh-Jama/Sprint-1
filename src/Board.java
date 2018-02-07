@@ -24,7 +24,7 @@ import javax.swing.*;
 public class Board extends JPanel{
 	private int Height = 640;
 	private int Width = 638;
-	private JPanel panel = new JPanel();
+	private PlayerPanel panel = new PlayerPanel();
 
 	//private Panel panel = new Panel();
 	private JLabel backgroundImage;
@@ -40,6 +40,42 @@ public class Board extends JPanel{
 	    }
 	}
 	
+	class PlayerPanel extends JPanel{
+		double x=22.5*11,y=25,velX=23,velY=23;
+		
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			
+			Graphics2D g2 = (Graphics2D) g;
+			
+			Ellipse2D c = new Ellipse2D.Double(x,y, 23, 23);
+			g2.fill(c);
+			
+		}
+		
+		public void move(String movementType) {
+			switch(movementType) {
+			case "UP":{
+				y -= velY;
+				break;
+				
+			}
+			case "Down":{
+				y += velY;
+				break;
+			}
+			case "Right":{
+				x += velX;
+				break;
+			}
+			case "Left":{
+				x -= velX;
+				break;
+			}
+			}
+			repaint();
+		}
+	}
 	
 	
 	public Board() {
@@ -51,7 +87,7 @@ public class Board extends JPanel{
 		bacgroundPanel.add(panel);
 		bacgroundPanel.setPreferredSize(new Dimension(Height,Width));
 		this.add(bacgroundPanel);
-		//this.setSize(Width, Height);
+		this.setSize(Width, Height);
 		//displayImage();
 		
 	}
@@ -60,11 +96,16 @@ public class Board extends JPanel{
 		JLabel msg = new JLabel("Hello, and welcome");
 		msg.setFont(new Font("Serif", Font.BOLD, 20));
 		msg.setForeground(Color.ORANGE);
+		msg.setLocation(500, 300);
 		panel.add(msg);
+		
 		panel.revalidate();
 	}
 	
-
+	
+	
+	
+	
 	public int getPanelHeight() {
 		return panel.getSize().height;
 	}
@@ -87,11 +128,17 @@ public class Board extends JPanel{
 	       };
 		this.add(backgroundImage);
 	}
+	public void movePlayer(String res) {
+		panel.move(res);
+	}
+	
 	private void createGridPanel() {
 			
 			panel.setSize((int) (Width * 0.8655), (int)(Height * 0.898));
-			//panel.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
-			
+			System.out.println(panel.getAlignmentX());
+			//panel.setPreferredSize(new Dimension((int) (Width * 0.8655), (int)(Height * 0.898)));
+			panel.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+			System.out.println("Panel size is: "+panel.getSize());
 			//Making the background set.
 			panel.setOpaque(false);
 			//The panel is set to the middle of the board.
