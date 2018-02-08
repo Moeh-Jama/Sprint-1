@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -25,7 +26,9 @@ public class Board extends JPanel{
 	private int Height = 640;
 	private int Width = 638;
 	private PlayerPanel panel = new PlayerPanel();
-
+	
+	private PlayerPanel[] currentPlayers = new PlayerPanel[5];
+	private JPanel GameBoardPanel = new JPanel();
 	//private Panel panel = new Panel();
 	private JLabel backgroundImage;
 	
@@ -41,35 +44,62 @@ public class Board extends JPanel{
 	}
 	
 	class PlayerPanel extends JPanel{
-		double x=22.5*11,y=25,velX=23,velY=23;
-		
+		private double x=0;
+		private double y = 0;
+		private int volX=23;
+		private int volY=23;
+		Color player = Color.RED;
+		//22.5*11
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			
 			Graphics2D g2 = (Graphics2D) g;
 			
 			Ellipse2D c = new Ellipse2D.Double(x,y, 23, 23);
+			g2.setColor(player);
 			g2.fill(c);
 			
+			
+		}
+		
+		public void setX(double x) { this.x = x;}
+		public double getPlayerX() {return x;}
+		
+		public void setY(double y) {this.y = y;}
+		public double getPlayerY() {return y;}
+		
+		public void setPlayer(String playerName) {
+			switch(playerName) {
+			case "Example1":{
+				player = Color.RED;
+			}
+			case "Example2":{
+				player = Color.BLUE;
+			}
+			default:{
+				System.out.println("Player could not be assigned Color: setPlayerName");
+				System.exit(0);
+			}
+			}
 		}
 		
 		public void move(String movementType) {
 			switch(movementType) {
 			case "UP":{
-				y -= velY;
+				y -= volY;
 				break;
 				
 			}
 			case "Down":{
-				y += velY;
+				y += volY;
 				break;
 			}
 			case "Right":{
-				x += velX;
+				x += volX;
 				break;
 			}
 			case "Left":{
-				x -= velX;
+				x -= volX;
 				break;
 			}
 			}
@@ -79,24 +109,34 @@ public class Board extends JPanel{
 	
 	
 	public Board() {
-		
-		this.setSize(Height, Width);
 		createGridPanel();
+		this.setSize(Height, Width);
+		//this.setSize(Width, Height);
 		JPanel bacgroundPanel = new BigPanel();
-		bacgroundPanel.setLayout(new BorderLayout());
+		bacgroundPanel.setLayout(null);
+		//bacgroundPanel.setSize(Width, Height);
+		//createGridPanel();
+		
 		bacgroundPanel.add(panel);
 		bacgroundPanel.setPreferredSize(new Dimension(Height,Width));
+
 		this.add(bacgroundPanel);
-		this.setSize(Width, Height);
+
 		//displayImage();
 		
+
+		
 	}
+	public void resizeGameBoard() {
+		GameBoardPanel.setSize(50,50);
+	}
+	
 	
 	public void addButtonToPanel() {
 		JLabel msg = new JLabel("Hello, and welcome");
 		msg.setFont(new Font("Serif", Font.BOLD, 20));
 		msg.setForeground(Color.ORANGE);
-		msg.setLocation(500, 300);
+		
 		panel.add(msg);
 		
 		panel.revalidate();
@@ -107,47 +147,41 @@ public class Board extends JPanel{
 	
 	
 	public int getPanelHeight() {
-		return panel.getSize().height;
+		return panel.getHeight();
 	}
 	public int getPanelWidth() {
 		return panel.getSize().width;
 	}
-	private void displayImage() {
-		//ImageIcon icon = new ImageIcon(".\\image\\CluedBoard.jpg");
-		ImageIcon icon = new ImageIcon("src/image/CluedBoard.jpg");
-		backgroundImage = new JLabel(icon){
-			public void paint(Graphics g) {
-	            super.paint(g);
-	            double width = this.getSize().getWidth();
-	            double height = this.getSize().getHeight();
-	            g.setColor(Color.red);
-	            for (int i=0; i<width; i+=height) {
-	               g.drawOval(i, 0, (int) height, (int) height);
-	            }
-	         }
-	       };
-		this.add(backgroundImage);
-	}
+
 	public void movePlayer(String res) {
 		panel.move(res);
 	}
 	
+	
 	private void createGridPanel() {
+		/*
+		 * This function sets the size of t
+		 */
+		int panel_width = (int) (Width * 0.8655);
+		int panel_height =  (int)(Height * 0.898);
+		Dimension panelSize = new Dimension(panel_width, panel_height);
+		panel.setPreferredSize(panelSize);
+		panel.setSize(panelSize);
+		System.out.println("Panel size is: "+panel.getSize());
+		
+		
+		//Making the background set.
+		panel.setOpaque(false);
+		//The panel is set to the middle of the board.
+		
+		
+
+		int x = 42;
+		int y = 23;
+		panel.setLocation(x, y);
+
 			
-			panel.setSize((int) (Width * 0.8655), (int)(Height * 0.898));
-			System.out.println(panel.getAlignmentX());
-			//panel.setPreferredSize(new Dimension((int) (Width * 0.8655), (int)(Height * 0.898)));
-			panel.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
-			System.out.println("Panel size is: "+panel.getSize());
-			//Making the background set.
-			panel.setOpaque(false);
-			//The panel is set to the middle of the board.
-			int x = 34;
-			int y = 3;
-			panel.setLocation(x, y);
-
-
-			this.add(panel);//, BorderLayout.CENTER);
+			
 	}
 	
 
