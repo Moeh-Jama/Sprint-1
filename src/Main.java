@@ -1,7 +1,12 @@
 
+import java.io.File;
 import java.util.Scanner;
 
 import javax.swing.*;
+
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class Main {
 	private static GameProperties gp = new GameProperties();
@@ -26,6 +31,8 @@ public class Main {
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		
+		
 		Scanner in = new Scanner(System.in);
 		
 		while(true) {
@@ -36,9 +43,21 @@ public class Main {
 				break;
 			}
 			else {
+				//java.awt.Toolkit.getDefaultToolkit().beep();
+				final JFXPanel fxPanel = new JFXPanel();
+				File sound = new File("");
+				String path = (sound.getAbsolutePath()+"\\src\\Uganda.mp3");
+				Media hit = new Media(new File(path).toURI().toString());
+				MediaPlayer mediaPlayer = new MediaPlayer(hit);
+				mediaPlayer.stop();
+				//media[0] = mediaPlayer;
+				mediaPlayer.play();
+				
 				b.movePlayer(res);
 			}
 		}
+		
+
 		
 		
 	}
@@ -55,40 +74,4 @@ public class Main {
 		b.revalidate();
 	}
 	
-	/*public static void movePlayer(String res) {
-		String[] xy  = res.split(",");
-		int x = Integer.parseInt(xy[0]);
-		int y = Integer.parseInt(xy[1]);
-		if(x>0) {
-			while(x!=0) {
-				b.move("Left");
-				x--;
-			}
-		
-		}
-		else if(x>0) {
-			while(x!=0) {
-				b.move("Right");
-				
-				x++;
-			}
-		}
-		
-		if(y>0) {
-			while(y!=0) {
-				b.move("UP");
-				y--;
-			}
-		
-		}
-		else if(y>0) {
-			while(y!=0) {
-				b.move("Down");
-				
-				y++;
-			}
-		
-	}
-		RevalidateBoard();
-	}*/
 }

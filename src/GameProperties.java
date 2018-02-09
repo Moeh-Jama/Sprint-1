@@ -14,12 +14,18 @@ public class GameProperties {
 	 */
 	private int height = 574;
 	private int width = 552;
-
+	
+	public void moveCharacter() {
+		
+	}
 	
 	
 	
 	private Cell[][] game_board;// = new Cell[25][25];
 	private ArrayList<String> door_positions = new ArrayList<String>();
+	
+	
+	
 	
 	
 	
