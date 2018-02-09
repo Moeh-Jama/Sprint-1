@@ -19,7 +19,7 @@ public class Main {
 		f.setSize(1000, 700);
 		f.setLocationRelativeTo(null);
 		JPanel totalPanel = new JPanel();
-		b.addButtonToPanel();
+		//b.addButtonToPanel();
 		totalPanel.add(b);
 		totalPanel.add(controlPanel);
 		f.add(totalPanel);

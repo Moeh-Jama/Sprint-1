@@ -136,6 +136,8 @@ public class GameProperties {
 		return width;
 	}
 	
-	
+	public void playerPos(int x, int y) {
+		
+	}
 	
 }
