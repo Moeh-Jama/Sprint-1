@@ -39,7 +39,7 @@ public class Control extends JPanel implements ActionListener{
 		roll.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				//to store the sum of two dice
+				//to store the sum of two dices
 				totalNumberOfMoves = 0; 
 				int result = 0;
 				Dice dice[] = new Dice[2];
