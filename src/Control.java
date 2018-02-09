@@ -16,8 +16,10 @@ import javax.swing.JTextField;
 public class Control extends JPanel implements ActionListener{
 	JPanel panel = new JPanel();
 	private int totalNumberOfMoves = 0;
-	private String move= "";
+	//private String move= "";
 	private boolean moveSubmitted = false;
+	private int x = 0, y = 0;
+	
 	public Control(){
 		
 		//this.setTitle("Control Panel");
@@ -61,8 +63,8 @@ public class Control extends JPanel implements ActionListener{
 		submitMove.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				int x = 0;
-				int y = 0;
+				x = 0;
+				y = 0;
 				//to check if the moves set that the user insert is valid
 				boolean validMove;
 				if(totalNumberOfMoves == 0) {
@@ -83,6 +85,7 @@ public class Control extends JPanel implements ActionListener{
 								if(!splited[i].equalsIgnoreCase("U") && !splited[i].equalsIgnoreCase("D")
 									&& !splited[i].equalsIgnoreCase("L")&& !splited[i].equalsIgnoreCase("R")){
 									JOptionPane.showMessageDialog(null, "Invalid input. All input should only contain\n" + "U = UP\nD = DOWN\nL = Left\nR = Right", "An Error has occured", JOptionPane.ERROR_MESSAGE);
+									validMove = false;
 									break;
 								}
 								else{
@@ -108,13 +111,15 @@ public class Control extends JPanel implements ActionListener{
 						}
 						
 					}while(!validMove);
+					
+					//disable the submit move button
+					submitMove.setEnabled(false);
 				}
-				//disable the submit move button
-				submitMove.setEnabled(false);
+				
 				moveSubmitted = true;
 				String newString = Integer.toString(x)+","+Integer.toString(y);
 				System.out.println(newString);
-				move = newString;
+				//move = newString;
 				//Main.movePlayer(move);
 			 }
 		});
@@ -123,10 +128,18 @@ public class Control extends JPanel implements ActionListener{
 		panel.add(roll);
 		panel.add(submitMove);
 	}	
-	public String getMove() {
-		if(!moveSubmitted)
-			return "wrong,wrong";
-		return move;
+	public int[] getMove(int x_in, int y_in) {
+		int newCoordinates[] = new int[2];
+		if(!moveSubmitted){
+			/*return "wrong,wrong";*/
+		}
+		else{
+			x_in += x;
+			y_in += y;
+			newCoordinates[0] = x_in;
+			newCoordinates[1] = y_in;
+		}
+		return newCoordinates;
 	}
 	public void actionPerformed(ActionEvent e) {
 		
