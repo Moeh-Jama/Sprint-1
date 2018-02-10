@@ -1,10 +1,10 @@
-import java.util.*;
-public class player {
+
+public class Player {
 	private String name;
 	private int x;
 	private int y;
 	
-	public player(String name, int a,int b){
+	public Player(String name, int a,int b){
 		this.x=a;
 		this.y=b;
 		this.name=name;
