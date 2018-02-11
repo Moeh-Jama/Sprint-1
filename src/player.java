@@ -23,20 +23,6 @@ public class player extends JPanel {
 		this.player_Y_CoOrdinate = y;
 	}
 //Returns players name
-	public String getPlayerName() {
-
-
-public class player {
-	private String name;
-	private int x;
-	private int y;
-	
-	public Player(String name, int a,int b){
-		this.x=a;
-		this.y=b;
-		this.name=name;
-	}
-	
 	public String getPlayerName(){
 
 		return this.name;
