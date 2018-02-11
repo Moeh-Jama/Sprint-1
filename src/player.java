@@ -8,9 +8,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class player extends JPanel {
-	private String name;//Name of the player	
-	private double player_X_CoOrdinate;//co-ordinate X of the player
-	private double player_Y_CoOrdinate;//Y co-ordinate
+	private String name;// Name of the player
+	private double player_X_CoOrdinate;// co-ordinate X of the player
+	private double player_Y_CoOrdinate;// Y co-ordinate
 	private int velocity_X = 23 * 4;
 	private int velocity_Y = 23 * 4;
 	Color player = Color.RED;
@@ -18,24 +18,29 @@ public class player extends JPanel {
 	public void setPositionX(double x) {
 		this.player_X_CoOrdinate = x;
 	}
-//Sets Y-coOrdinate of the player
+
+	// Sets Y-coOrdinate of the player
 	public void setPositionY(double y) {
 		this.player_Y_CoOrdinate = y;
 	}
-//Returns players name
-	public String getPlayerName(){
+
+	// Returns players name
+	public String getPlayerName() {
 
 		return this.name;
 	}
-//Function to return players X co-ordinate
+
+	// Function to return players X co-ordinate
 	public double getPlayerPostionX() {
 		return this.player_X_CoOrdinate;
 	}
-//function to return players Y co-ordinate
+
+	// function to return players Y co-ordinate
 	public double getPlayerPositionY() {
 		return this.player_Y_CoOrdinate;
 	}
-//Function to move the players over the board
+
+	// Function to move the players over the board
 	public void move(String movementType) {
 		switch (movementType) {
 		case "U": {
@@ -62,7 +67,8 @@ public class player extends JPanel {
 		}
 		repaint();
 	}
-	//Assigning colours to players
+
+	// Assigning colours to players
 	public void setPlayer(String playerName) {
 		switch (playerName) {
 		case "Example1": {
