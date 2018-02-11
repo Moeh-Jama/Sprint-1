@@ -17,6 +17,8 @@ public class Control extends JPanel implements ActionListener{
 	JPanel panel = new JPanel();
 	private int totalNumberOfMoves = 0;
 	//private String move= "";
+	private JButton roll = null;
+	private JButton submitMove = null;
 	private boolean moveSubmitted = false;
 	private int x = 0, y = 0;
 	
@@ -34,7 +36,7 @@ public class Control extends JPanel implements ActionListener{
 	
 	public void panel(){
 		//create roll button
-		JButton roll = new JButton("Roll Dice");
+		roll = new JButton("Roll Dice");
 		roll.setActionCommand("Roll");
 		roll.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
@@ -59,7 +61,7 @@ public class Control extends JPanel implements ActionListener{
 		});
 		
 		//create submit move button
-		JButton submitMove = new JButton("Submit Moves");
+		submitMove = new JButton("Submit Moves");
 		submitMove.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -119,8 +121,9 @@ public class Control extends JPanel implements ActionListener{
 				moveSubmitted = true;
 				String newString = Integer.toString(x)+","+Integer.toString(y);
 				System.out.println(newString);
+				
 				//move = newString;
-				//Main.movePlayer(move);
+				Main.movePlayer(x, y);
 			 }
 		});
 		
@@ -158,6 +161,11 @@ public class Control extends JPanel implements ActionListener{
 		}
 		}
 		
+	}
+	
+	public void ReEnableAll() {
+		roll.setEnabled(true);
+		submitMove.setEnabled(true);
 	}
 }
 	
