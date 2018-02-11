@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -25,6 +26,8 @@ public class player extends JPanel {
 //Returns players name
 	public String getPlayerName() {
 =======
+=======
+>>>>>>> 288fa74e8f60004bea748185eca092c09b71d250
 
 public class Player {
 	private String name;
