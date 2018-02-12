@@ -9,7 +9,7 @@ import java.util.*;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class player extends JPanel {
+public class Player extends JPanel {
 	private String name;// Name of the player
 	private int player_X_CoOrdinate;// co-ordinate X of the player
 	private int player_Y_CoOrdinate;// Y co-ordinate
