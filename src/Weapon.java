@@ -9,11 +9,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class Weapon extends JPanel {
-	private int weaponX;
-	private int weaponY;
+	private int weaponX=0;
+	private int weaponY=0;
 	private String name;
-	private int velocity_X = 23 * 4;
-	private int velocity_Y = 23 * 4;
+	private int velocity_X = 23;
+	private int velocity_Y = 23;
 	Color weapon = Color.RED;
 
 
@@ -50,9 +50,6 @@ public class Weapon extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		//Ellipse2D c = new Ellipse2D.Double(weaponX,weaponY, 23, 23); g2.setColor(weapon);
-		//g2.setBackground(Color.BLUE);
-
 		g2.setColor(Color.cyan);
 		g2.setFont(new Font("Britannic", Font.BOLD, 14));
 		g2.drawString(getName().substring(0, 2), weaponX, weaponY); 
@@ -84,21 +81,6 @@ public class Weapon extends JPanel {
 		}
 		}
 		repaint();
-	}
-
-	public void setWeapon(String weaponName) {
-		switch (weaponName) {
-		case "Example1": {
-			weapon = Color.RED;
-		}
-		case "Example2": {
-			weapon = Color.BLUE;
-		}
-		default: {
-			System.out.println("Player could not be assigned Color: setPlayerName");
-			System.exit(0);
-		}
-		}
 	}
 
 }

@@ -1,17 +1,11 @@
 
 
-import java.awt.GridLayout;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 public class Control extends JPanel implements ActionListener{
 	JPanel panel = new JPanel();
@@ -28,7 +22,7 @@ public class Control extends JPanel implements ActionListener{
 		this.setSize(600, 600);
 		
 		panel();
-		
+		submitMove.setEnabled(false);
 		this.add(panel);
 		this.setVisible(true);
 		//this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
@@ -57,6 +51,7 @@ public class Control extends JPanel implements ActionListener{
 				
 				//disable the roll button after user had roll the dice
 				roll.setEnabled(false);
+				submitMove.setEnabled(true);
 			 }
 		});
 		
@@ -124,6 +119,7 @@ public class Control extends JPanel implements ActionListener{
 				
 				//move = newString;
 				Main.movePlayer(x, y);
+				
 			 }
 		});
 		
@@ -165,7 +161,8 @@ public class Control extends JPanel implements ActionListener{
 	
 	public void ReEnableAll() {
 		roll.setEnabled(true);
-		submitMove.setEnabled(true);
+		submitMove.setEnabled(false);
 	}
+
 }
 	
