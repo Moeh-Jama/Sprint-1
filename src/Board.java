@@ -28,7 +28,7 @@ public class Board extends JPanel{
 	private int Width = 638;
 	//private PlayerPanel panel = new PlayerPanel();
 	
-	private player[] currentPlayers = new player[6];
+	private Player[] currentPlayers = new Player[6];
 	private Weapon[] currentWeapons = new Weapon[6];
 	private JPanel GameBoardPanel = new JPanel();
 	
@@ -79,7 +79,7 @@ public class Board extends JPanel{
 			int y = Integer.parseInt(starting_pos[i].split(", ")[0]);
 			int x = Integer.parseInt(starting_pos[i].split(", ")[1]);
 
-			currentPlayers[i] = new player();
+			currentPlayers[i] = new Player();
 			currentPlayers[i].setPositionY(y*23);
 			currentPlayers[i].setPositionX(x*23);
 			currentPlayers[i].setPlayerName(player_names[i]);
@@ -89,14 +89,14 @@ public class Board extends JPanel{
 	}
 
 	
-	public player getPlayer(int index) {
+	public Player getPlayer(int index) {
 		return currentPlayers[index];
 	}
 	
 	public void movePlayer(String res, int player) {
 		currentPlayers[player].move(res);
 	}
-	private player playerPanelGrid(player panel) {
+	private Player playerPanelGrid(Player panel) {
 		/*
 		 * This function sets the size of t
 		 */

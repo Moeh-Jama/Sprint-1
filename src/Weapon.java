@@ -17,36 +17,43 @@ public class Weapon extends JPanel {
 	Color weapon = Color.RED;
 
 
-
+	//get weapon coordinate x 
 	public int getWeaponX() {
 		return this.weaponX;
 	}
 
+	//get weapon coordinate y
 	public int getWeaponY() {
 		return this.weaponY;
 	}
-
+	
+	//get the weapon name
 	public String getName() {
 		return this.name;
 	}
 
+	//set the weapon name
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	//set the weapon coordinate x
 	public void setWeaponX(int x) {
 		this.weaponX = x;
 	}
 
+	//set the weapon coordinate y
 	public void setWeaponY(int y) {
 		this.weaponY = y;
 	}
 
+	//calculate the new coordinate of the weapon
 	public void calculateCoordinates(int x, int y) {
 		weaponX += x;
 		weaponY += y;
 	}
 
+	//generate image of weapon
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
@@ -59,6 +66,7 @@ public class Weapon extends JPanel {
 		//g2.fill(c);
 	}
 
+	//move weapon
 	public void move(String movementType) {
 		switch (movementType) {
 		case "U": {

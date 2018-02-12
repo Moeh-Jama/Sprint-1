@@ -21,7 +21,7 @@ public class GameProperties {
 	
 	
 	
-	private cell[][] game_board;// = new Cell[25][25];
+	private Cell[][] game_board;// = new Cell[25][25];
 	private ArrayList<String> door_positions = new ArrayList<String>();
 	
 	
@@ -38,7 +38,7 @@ public class GameProperties {
 	
 	
 	public void makeGameBoard() {
-		game_board = new cell[25][25];
+		game_board = new Cell[25][25];
 		createArrayListGrid();
 	}
 	
@@ -46,7 +46,7 @@ public class GameProperties {
 		readDoors();
 		createDoorsGrid();
 	}
-	public cell getBoardPos(int x, int y) {
+	public Cell getBoardPos(int x, int y) {
 		return game_board[x][y];
 	}
 	
@@ -71,7 +71,7 @@ public class GameProperties {
 				// This should give us the mid point of each cell and reduces any
 				// irregular points. I.e. a point being behind or after a grid line.
 				
-				cell temp = new cell(false, false, "NA", x1, y1, x2, y2);
+				Cell temp = new Cell(false, false, "NA", x1, y1, x2, y2);
 				
 				//System.out.println(iterationx+","+iterationy);
 				game_board[iterationx][iterationy] = temp;

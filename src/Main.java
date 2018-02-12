@@ -22,7 +22,7 @@ public class Main {
 	private static int currentPlayer = 0;
 	
 	
-	private static player PlayerDetails = null;
+	private static Player PlayerDetails = null;
 	private static Weapon WeaponDetails = null;
 	
 	public static void main(String[] args) {

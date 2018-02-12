@@ -1,5 +1,5 @@
 
-public class cell {
+public class Cell {
 	private boolean door;
 	private String room;
 	private String type;
@@ -10,7 +10,7 @@ public class cell {
 	private int y2;
 	
 	
-	public cell(boolean door,boolean player,String type, int a1, int b1,int a2, int b2){
+	public Cell(boolean door,boolean player,String type, int a1, int b1,int a2, int b2){
 		this.door=door;
 		this.type=type;
 		this.player=player;
