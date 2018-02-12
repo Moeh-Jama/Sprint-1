@@ -13,7 +13,7 @@ public class Board extends JPanel{
 	/*
 	 * currentPlayers and currentWeapons holds all Weapon and Player token classes.
 	 */
-	private player[] currentPlayers = new player[6];
+	private Player[] currentPlayers = new Player[6];
 	private Weapon[] currentWeapons = new Weapon[6];
 	private JPanel GameBoardPanel = new JPanel();
 	
@@ -70,7 +70,7 @@ public class Board extends JPanel{
 			int y = Integer.parseInt(starting_pos[i].split(", ")[0]);
 			int x = Integer.parseInt(starting_pos[i].split(", ")[1]);
 
-			currentPlayers[i] = new player();
+			currentPlayers[i] = new Player();
 			//Positions assigned
 			currentPlayers[i].setPositionY(y*23);
 			currentPlayers[i].setPositionX(x*23);
@@ -83,7 +83,7 @@ public class Board extends JPanel{
 		}
 	}
 	
-	private player playerPanelGrid(player panel) {
+	private Player playerPanelGrid(Player panel) {
 		/*
 		 * This function sets the size of the Player Panel and correct position
 		 */
@@ -109,7 +109,7 @@ public class Board extends JPanel{
 			
 	}
 	
-	public player getPlayer(int index) {
+	public Player getPlayer(int index) {
 		return currentPlayers[index];
 	}
 	

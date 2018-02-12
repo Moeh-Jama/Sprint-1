@@ -45,7 +45,7 @@ public class Main {
 	
 	//current Player and Weapon objects declared to null, since
 	//game has not started started.
-	private static player PlayerDetails = null;
+	private static Player PlayerDetails = null;
 	private static Weapon WeaponDetails = null;
 	
 	public static void main(String[] args) {
