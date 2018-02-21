@@ -6,14 +6,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class Control extends JPanel implements ActionListener{
 	JPanel panel = new JPanel();
 	private int totalNumberOfMoves = 0;
-	//private String move= "";
-	private JButton roll = null;
-	private JButton submitMove = null;
+	private JButton submitCommand = null;
+	private JTextArea commandPanel = null;
 	private boolean moveSubmitted = false;
+	private boolean isDone = false;
 	private int x = 0, y = 0;
 	
 	public Control(){
@@ -22,110 +23,108 @@ public class Control extends JPanel implements ActionListener{
 		this.setSize(600, 600);
 		
 		panel();
-		submitMove.setEnabled(false);
 		this.add(panel);
 		this.setVisible(true);
 		//this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 	}
 	
 	public void panel(){
-		//create roll button
-		roll = new JButton("Roll Dice");
-		roll.setActionCommand("Roll");
-		roll.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e)
-			{
-				//to store the sum of two dices
-				totalNumberOfMoves = 0; 
-				int result = 0;
-				Dice dice[] = new Dice[2];
-				
-				//roll two dice
-				for(int i=0;i<2;i++){
-					dice[i] = new Dice();
-					result += dice[i].value();
-				}			
-				String message = ("Your dices' values are " + dice[0].value() + " and " + dice[1].value() + ", so you have " + result + " moves.");
-				JOptionPane.showMessageDialog(null, message);
-				totalNumberOfMoves = result;
-				
-				//disable the roll button after user had roll the dice
-				roll.setEnabled(false);
-				submitMove.setEnabled(true);
-			 }
-		});
+		commandPanel = new JTextArea(2,20);		
+		submitCommand = new JButton("Confirm");
 		
-		//create submit move button
-		submitMove = new JButton("Submit Moves");
-		submitMove.addActionListener(new ActionListener(){
+		submitCommand.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				x = 0;
-				y = 0;
-				//to check if the moves set that the user insert is valid
-				boolean validMove;
-				if(totalNumberOfMoves == 0) {
-					String errorMessage = "Please roll a dice first in order to make your move.";
-					JOptionPane.showMessageDialog(null, errorMessage, "An Error has occured", JOptionPane.ERROR_MESSAGE);
-				}else {
-					do{
+				String command = commandPanel.getText();
+				if(command.equalsIgnoreCase("roll")){
+					//to store the sum of two dices
+					totalNumberOfMoves = 0;
+					int result = 0;
+					Dice dice[] = new Dice[2];
+					
+					//roll two dice
+					for(int i=0;i<2;i++){
+						dice[i] = new Dice();
+						result += dice[i].value();
+					}			
+					String message = ("Your dices' values are " + dice[0].value() + " and " + dice[1].value() + ", so you have " + result + " moves.");
+					JOptionPane.showMessageDialog(null, message);
+					totalNumberOfMoves = result;
+					commandPanel.setText(null);
+				}
+				else if(command.equalsIgnoreCase("quit")){
+					//exit game
+					System.exit(1);
+				}
+				else if(command.equalsIgnoreCase("done")){
+					//ends player's turn
+					Main.endTurn();
+				}
+				else{
+					x = 0;
+					y = 0;
+					//to check if the moves set that the user insert is valid
+					boolean validMove = true;
+					if(totalNumberOfMoves == 0) {
+						String errorMessage = "Please roll a dice first in order to make your move.";
+						JOptionPane.showMessageDialog(null, errorMessage, "An Error has occured", JOptionPane.ERROR_MESSAGE);
 						validMove = false;
-						String moves = JOptionPane.showInputDialog("Please insert your move > ");
-						String [] splited = moves.split("");
+					}
+					else {
+						String moves = command;
+						String [] splited = moves.split(" ");
 						
 						//to check if the user insert the same number of moves compare to the sum of the two dice
 						if(splited.length != totalNumberOfMoves){
 							JOptionPane.showMessageDialog(null, "Invalid number of moves, you have " + totalNumberOfMoves + " moves.", "An Error has occured", JOptionPane.ERROR_MESSAGE);
-						}else{
+							validMove = false;
+						}
+						else{
 							//to check for invalid input from users
 							for(int i=0;i<splited.length;i++){
-								if(!splited[i].equalsIgnoreCase("U") && !splited[i].equalsIgnoreCase("D")
-									&& !splited[i].equalsIgnoreCase("L")&& !splited[i].equalsIgnoreCase("R")){
+								if(!splited[i].equalsIgnoreCase("U") && !splited[i].equalsIgnoreCase("D") && !splited[i].equalsIgnoreCase("L")&& !splited[i].equalsIgnoreCase("R")){
 									JOptionPane.showMessageDialog(null, "Invalid input. All input should only contain\n" + "U = UP\nD = DOWN\nL = Left\nR = Right", "An Error has occured", JOptionPane.ERROR_MESSAGE);
 									validMove = false;
 									break;
 								}
-								else{
-									validMove = true;
-								}
 							}
 							
-							//x and y coordinates operation here
-							for(int i=0;i<splited.length;i++){
-								if(splited[i].equalsIgnoreCase("U")){
-									x++;
-									
-								}else if(splited[i].equalsIgnoreCase("D")){
-									x--;
-									
-								}else if(splited[i].equalsIgnoreCase("L")){
-									y++;
-									
-								}else if(splited[i].equalsIgnoreCase("R")){
-									y--;
+							if(validMove){
+								//x and y coordinates operation here
+								for(int i=0;i<splited.length;i++){
+									if(splited[i].equalsIgnoreCase("U")){
+										x++;
+										
+									}else if(splited[i].equalsIgnoreCase("D")){
+										x--;
+										
+									}else if(splited[i].equalsIgnoreCase("L")){
+										y++;
+										
+									}else if(splited[i].equalsIgnoreCase("R")){
+										y--;
+									}
 								}
+								
+								//moveSubmitted = true;
+								String newString = Integer.toString(x)+","+Integer.toString(y);
+								System.out.println(newString);
+								
+								//move = newString;
+								Main.movePlayer(x, y);
+								commandPanel.setText(null);
 							}
 						}
-						
-					}while(!validMove);
+					}
 					
-					//disable the submit move button
-					submitMove.setEnabled(false);
+					
 				}
-				
-				moveSubmitted = true;
-				String newString = Integer.toString(x)+","+Integer.toString(y);
-				System.out.println(newString);
-				
-				//move = newString;
-				Main.movePlayer(x, y);
-				
 			 }
 		});
 		
-		//add buttons into the control panel
-		panel.add(roll);
-		panel.add(submitMove);
+		//add features into the control panel
+		panel.add(commandPanel);
+		panel.add(submitCommand);
 	}	
 	public int[] getMove(int x_in, int y_in) {
 		int newCoordinates[] = new int[2];
@@ -144,24 +143,19 @@ public class Control extends JPanel implements ActionListener{
 		
 		String name = e.getActionCommand();
 		switch(name) {
-		/*case "Roll":{
-			
-			
-		}
-		case "Submit Moves":{
-			
-		}*/
-		default:{
-			JOptionPane.showInputDialog(null, "An unexptected Error has Occured: Control:63", JOptionPane.ERROR_MESSAGE);
-			break;
-		}
+			default:{
+				JOptionPane.showInputDialog(null, "An unexptected Error has Occured: Control:63", JOptionPane.ERROR_MESSAGE);
+				break;
+			}
 		}
 		
 	}
 	
 	public void ReEnableAll() {
-		roll.setEnabled(true);
-		submitMove.setEnabled(false);
+		/*roll.setEnabled(true);
+		submitMove.setEnabled(false);*/
+		totalNumberOfMoves = 0;
+		commandPanel.setText(null);
 	}
 
 }

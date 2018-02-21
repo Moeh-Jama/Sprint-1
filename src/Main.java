@@ -204,11 +204,14 @@ public class Main {
 			
 			
 			currentPlayer++;
-			RevalidateControl();
 		}
 		else {
 			moveWeapon(x, y);
 		}
+	}
+	
+	public static void endTurn(){
+		RevalidateControl();
 	}
 	
 	
